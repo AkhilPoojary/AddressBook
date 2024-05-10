@@ -8,9 +8,11 @@ public class Main {
 
         AddressBook book=new AddressBook();
 
-        book.createContact();
+//        book.createContact();
+//
+//        book.addContact();
 
-        book.addContact();
+        book.editContact();
 
     }
 }

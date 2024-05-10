@@ -98,4 +98,9 @@ public class Contact {
         this.zip = zip;
         this.phoneNumber = phoneNumber;
     }
+
+    Contact()
+    {
+
+    }
 }
