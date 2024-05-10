@@ -48,4 +48,11 @@ public class AddressBook {
 
 return  c;
     }
+
+    public void addContact()
+    {
+       Contact c=createContact();
+
+       contact.add(c);
+    }
 }
