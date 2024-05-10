@@ -1,77 +1,51 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class AddressBook {
-    private String firstName;
-    private String lastName;
-    private String address;
-    private String city;
-    private String state;
-    private String email;
-    private int zip;
-    private long phoneNumber;
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    List<Contact> contact=new ArrayList<Contact>();
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    public Contact createContact()
+    {
+        Scanner sc =new Scanner(System.in);
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+        System.out.println("enter the first name");
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+        String firstName=sc.next();
 
-    public void setState(String state) {
-        this.state = state;
-    }
+        System.out.println("enter the last name");
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+        String lastName=sc.next();
 
-    public void setZip(int zip) {
-        this.zip = zip;
-    }
+        System.out.println("enter the address");
 
-    public void setPhoneNumber(long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+        String address=sc.next();
 
-    public String getLastName() {
-        return lastName;
-    }
+        System.out.println("enter the city");
 
-    public String getFirstName() {
-        return firstName;
-    }
+        String city=sc.next();
 
-    public String getAddress() {
-        return address;
-    }
+        System.out.println("enter the state");
 
-    public String getCity() {
-        return city;
-    }
+        String state=sc.next();
 
-    public String getState() {
-        return state;
-    }
+        System.out.println("enter the zip");
 
-    public String getEmail() {
-        return email;
-    }
+        int zip=sc.nextInt();
 
-    public int getZip() {
-        return zip;
-    }
+        System.out.println("enter the phone number");
 
-    public long getPhoneNumber() {
-        return phoneNumber;
+        long phoneMNumber=sc.nextLong();
+
+        System.out.println("enter the email");
+
+        String email=sc.next();
+
+      Contact c=new Contact(firstName,lastName,address,city,state,email,zip,phoneMNumber);
+
+return  c;
     }
-    
 }
