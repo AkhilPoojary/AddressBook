@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class AddressBook
-{
+public class AddressBook {
 
     public AddressBook book;
 
@@ -45,7 +44,7 @@ public class AddressBook
 
         System.out.println("enter the email");
 
-        String email =sc.next() ;
+        String email = sc.next();
 
         Contact c = new Contact(firstName, lastName, address, city, state, email, zip, phoneMNumber);
 
@@ -60,9 +59,9 @@ public class AddressBook
     }
 
     public void editContact(String firstName, String lastName) {
-        List<Contact> con=book.addContact();
+        List<Contact> con = book.addContact();
 
-        for(Contact c:con ) {
+        for (Contact c : con) {
             if (c.getFirstName().equals(firstName) && c.getLastName().equals(lastName)) {
                 Scanner s = new Scanner(System.in);
 
@@ -122,6 +121,14 @@ public class AddressBook
             }
         }
     }
-    public void delete(String firstName, String lastName)
-    {}
+
+    public void delete(String firstName, String lastName) {
+        List<Contact> con = book.addContact();
+
+        for(Contact c : con) {
+            if (c.getFirstName().equals(firstName) && c.getLastName().equals(lastName)) {
+                con.remove(c);
+            }
+        }
+    }
 }
