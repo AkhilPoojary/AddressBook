@@ -9,6 +9,8 @@ public class AddressBook {
 
 //    public AddressBook book;
 
+    Map<String, AddressBook> addressBookMap = new HashMap<String, AddressBook>();
+
     List<Contact> contact = new ArrayList<Contact>();
 
 
@@ -62,15 +64,14 @@ public class AddressBook {
     }
 
     public List<Contact> addContact() {
-        Scanner sc=new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         boolean edit = true;
-        while (edit)
-        {
+        while (edit) {
             Contact c = createContact();
             contact.add(c);
             System.out.println("contact added successfully");
             System.out.println("do you want to add contact ? (true/false)");
-            edit=sc.nextBoolean();
+            edit = sc.nextBoolean();
         }
         return contact;
     }
@@ -78,14 +79,14 @@ public class AddressBook {
     public void display() {
         System.out.println("The details of contacts in the address book are:");
 
-        for(Contact c : contact) {
+        for (Contact c : contact) {
             System.out.println(c);
             // You can print other details as well similarly
         }
     }
 
     public void editContact(String firstName, String lastName) {
-        List<Contact> con =addContact();
+        List<Contact> con = addContact();
 
         Scanner s = new Scanner(System.in);
         boolean exit = false;
@@ -150,14 +151,13 @@ public class AddressBook {
                 }
             }
         }
-        for(Contact c:con)
-        {
+        for (Contact c : con) {
             System.out.println(c);
         }
     }
 
     public void delete(String firstName, String lastName) {
-        List<Contact> con =addContact();
+        List<Contact> con = addContact();
 
         for (Contact c : con) {
             if (c.getFirstName().equals(firstName) && c.getLastName().equals(lastName)) {
@@ -168,65 +168,75 @@ public class AddressBook {
 
     public void addMultipleAddressBook() {
 
-        Scanner sc=new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        Map<String,AddressBook> addressBookMap=new HashMap<String,AddressBook>();
-
-        while(true)
-        {
+        while (true) {
             System.out.println("add new addressBookMap ? (yes/no");
-            String choice=sc.next();
-            if(choice.equalsIgnoreCase("no"))
+            String choice = sc.next();
+            if (choice.equalsIgnoreCase("no"))
                 break;
-            else{
+            else {
                 System.out.println("enter the name of the addressBook");
-                String addressBookName=sc.next();
+                String addressBookName = sc.next();
 
-                AddressBook addressBook=new AddressBook();
-                addressBookMap.put(addressBookName,addressBook);
-                System.out.println("new address book added with the name "+addressBookName);
+                AddressBook addressBook = new AddressBook();
+                addressBookMap.put(addressBookName, addressBook);
+                System.out.println("new address book added with the name " + addressBookName);
             }
         }
 //        now we are adding the person to the selected address book
 
         System.out.println("select an address book from the collection of the address book");
-        for(String name : addressBookMap.keySet())
-        {
+        for (String name : addressBookMap.keySet()) {
             System.out.println(name);
         }
 
         System.out.println("enter the address book");
-        String nameOfBook=sc.next();
+        String nameOfBook = sc.next();
 
         AddressBook addressBook = addressBookMap.get(nameOfBook);
-        if(addressBook==null)
-        {
+        if (addressBook == null) {
             System.out.println("book not found");
-        }
-        else{
+        } else {
             addContactToAddressBook(addressBook);
         }
 
+        System.out.println("contact prasent in the address book" + nameOfBook);
+        List<Contact> contacts = addressBook.addContact();
+        for(Contact c:contacts)
+        {
+            System.out.println(c);
+        }
+
+
     }
-  public void  addContactToAddressBook(AddressBook addressBook)
-  {
-      Scanner sc=new Scanner(System.in);
-      while(true)
-      {
-          System.out.println("add new person to the address book ?(yes/no");
-          String choice=sc.next();
-          if(choice.equalsIgnoreCase("no"))
-              break;
-          else{
-            addressBook.addContact();
-              System.out.println("person added to new address Book");
-          }
 
-      }
-  }
+    public void addContactToAddressBook(AddressBook addressBook) {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("add new person to the address book ?(yes/no");
+            String choice = sc.next();
+            if (choice.equalsIgnoreCase("no"))
+                break;
+            else {
+                System.out.println("enter the first name");
+                String firstname=sc.next();
 
+                System.out.println("enter the second name");
+                String lastName=sc.next();
 
+                if(addressBook.contact.contains(firstname) && addressBook.contact.contains(lastName)){
+                    System.out.println("this nam already present try with new name");
+                }
+                addressBook.addContact();
+                System.out.println("person added to new address Book");
+            }
+        }
+    }
 
+    public void checkForDuplicateEntry() {
+        addMultipleAddressBook();
+    }
 
 
 }
