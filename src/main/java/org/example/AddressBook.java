@@ -208,6 +208,23 @@ public class AddressBook {
             System.out.println(c);
         }
 
+//        searching a person using city and name
+        System.out.println("enter the city or state");
+        String searchkey=sc.next();
+
+        List<Contact> con=searchPersonByCityState(addressBookMap,searchkey);
+        {
+            if(con.isEmpty())
+            {
+                System.out.println("there is no contact available on this data");
+            }
+            else {
+                System.out.println("found the data based on input");
+                for (Contact c : con) {
+                    System.out.println(c);
+                }
+            }
+        }
 
     }
 
@@ -234,8 +251,8 @@ public class AddressBook {
         }
     }
 
-    public void checkForDuplicateEntry() {
-        addMultipleAddressBook();
+    public List<Contact> searchPersonByCityState(Map<String,AddressBook > addressBooks,String location) {
+return addressBooks.values().stream().map(address -> address.addContact().stream()).filter(contact->contact.);
     }
 
 
