@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 import java.util.Scanner;
 
@@ -165,13 +166,67 @@ public class AddressBook {
         }
     }
 
-//    public List<Contact> addMultiplePerson() {
-//        List<Contact> contact = new ArrayList<Contact>();
-//
-//        co
-//
-//
-//        return;
-//    }
+    public void addMultipleAddressBook() {
+
+        Scanner sc=new Scanner(System.in);
+
+        Map<String,AddressBook> addressBookMap=new HashMap<String,AddressBook>();
+
+        while(true)
+        {
+            System.out.println("add new addressBookMap ? (yes/no");
+            String choice=sc.next();
+            if(choice.equalsIgnoreCase("no"))
+                break;
+            else{
+                System.out.println("enter the name of the addressBook");
+                String addressBookName=sc.next();
+
+                AddressBook addressBook=new AddressBook();
+                addressBookMap.put(addressBookName,addressBook);
+                System.out.println("new address book added with the name "+addressBookName);
+            }
+        }
+//        now we are adding the person to the selected address book
+
+        System.out.println("select an address book from the collection of the address book");
+        for(String name : addressBookMap.keySet())
+        {
+            System.out.println(name);
+        }
+
+        System.out.println("enter the address book");
+        String nameOfBook=sc.next();
+
+        AddressBook addressBook = addressBookMap.get(nameOfBook);
+        if(addressBook==null)
+        {
+            System.out.println("book not found");
+        }
+        else{
+            addContactToAddressBook(addressBook);
+        }
+
+    }
+  public void  addContactToAddressBook(AddressBook addressBook)
+  {
+      Scanner sc=new Scanner(System.in);
+      while(true)
+      {
+          System.out.println("add new person to the address book ?(yes/no");
+          String choice=sc.next();
+          if(choice.equalsIgnoreCase("no"))
+              break;
+          else{
+            addressBook.addContact();
+              System.out.println("person added to new address Book");
+          }
+
+      }
+  }
+
+
+
+
 
 }
