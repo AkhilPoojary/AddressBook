@@ -89,8 +89,8 @@ public class AddressBook {
         List<Contact> con = addContact();
 
         Scanner s = new Scanner(System.in);
-        boolean exit = false;
-        while (!exit) {
+//        boolean exit = false;
+//        while (!exit) {
             for (Contact c : con) {
                 if (c.getFirstName().equals(firstName) && c.getLastName().equals(lastName)) {
 
@@ -150,7 +150,7 @@ public class AddressBook {
 
                 }
             }
-        }
+//        }
         for (Contact c : con) {
             System.out.println(c);
         }
@@ -162,6 +162,9 @@ public class AddressBook {
         for (Contact c : con) {
             if (c.getFirstName().equals(firstName) && c.getLastName().equals(lastName)) {
                 con.remove(c);
+            }
+            else{
+                System.out.println("no matched data found");
             }
         }
     }
@@ -191,7 +194,7 @@ public class AddressBook {
             System.out.println(name);
         }
 
-        System.out.println("enter the address book");
+        System.out.println("enter the address book from the given list of book");
         String nameOfBook = sc.next();
 
         AddressBook addressBook = addressBookMap.get(nameOfBook);
@@ -201,31 +204,46 @@ public class AddressBook {
             addContactToAddressBook(addressBook);
         }
 
-        System.out.println("contact prasent in the address book" + nameOfBook);
+        System.out.println("displaying the contact present in the address book" + nameOfBook);
         List<Contact> contacts = addressBook.addContact();
-        for(Contact c:contacts)
-        {
+        for (Contact c : contacts) {
             System.out.println(c);
         }
 
 //        searching a person using city and name
         System.out.println("enter the city or state");
-        String searchkey=sc.next();
+        String searchkey = sc.next();
 
-        List<Contact> con=searchPersonByCityState(addressBookMap,searchkey);
-        {
-            if(con.isEmpty())
-            {
-                System.out.println("there is no contact available on this data");
-            }
-            else {
-                System.out.println("found the data based on input");
-                for (Contact c : con) {
-                    System.out.println(c);
-                }
+        List<Contact> con = searchPersonByCityState(addressBookMap, searchkey);
+
+        if (con.isEmpty()) {
+            System.out.println("there is no contact available on this input");
+        } else {
+            System.out.println("found the data based on input");
+            for (Contact c : con) {
+                System.out.println(c);
             }
         }
 
+//            view person using city and state
+
+        System.out.println("view person using city or state");
+
+        System.out.println("enter the choice 1 or 2");
+        int choice = sc.nextInt();
+        if (choice == 1) {
+            System.out.println("enter the city");
+            String city = sc.next();
+            {
+                viewPersonByCity(addressBookMap, city);
+            }
+        } else {
+            System.out.println("enter the state");
+            String state = sc.next();
+            {
+                viewPersonByState(addressBookMap, state);
+            }
+        }
     }
 
     public void addContactToAddressBook(AddressBook addressBook) {
@@ -237,12 +255,12 @@ public class AddressBook {
                 break;
             else {
                 System.out.println("enter the first name");
-                String firstname=sc.next();
+                String firstname = sc.next();
 
                 System.out.println("enter the second name");
-                String lastName=sc.next();
+                String lastName = sc.next();
 
-                if(addressBook.contact.contains(firstname) && addressBook.contact.contains(lastName)){
+                if (addressBook.contact.contains(firstname) && addressBook.contact.contains(lastName)) {
                     System.out.println("this nam already present try with new name");
                 }
                 addressBook.addContact();
@@ -251,9 +269,42 @@ public class AddressBook {
         }
     }
 
-    public List<Contact> searchPersonByCityState(Map<String,AddressBook > addressBooks,String location) {
-return addressBooks.values().stream().map(address -> address.addContact().stream()).filter(contact->contact.);
+    public List<Contact> searchPersonByCityState(Map<String, AddressBook> addressBooks, String location) {
+//        return addressBooks.values().stream().map(address -> address.addContact().stream())
+//                .filter(contact -> contact.);
+
+        Map<String ,List<Contact>> byCity=new HashMap<String ,List<Contact>>();
+
+
+        Map<String, List<Contact>> cityToPersons = new HashMap<>();
+
+        addressBooks.values().forEach(addressBook -> {
+            addressBook.addContact().forEach(contact -> {
+                if (contact.getCity().equalsIgnoreCase(location)) {
+                    cityToPersons.computeIfAbsent(location, k -> new ArrayList<>()).add(contact);
+                }
+            });
+        });
+
+        if (cityToPersons.containsKey(location)) {
+            System.out.println("Persons in " + location + ":");
+            cityToPersons.get(location).forEach(System.out::println);
+        } else {
+            System.out.println("No persons found in " + location + ".");
+        }
+
     }
 
+
+
+ public void  viewPersonByCity(Map<String,AddressBook> addressBooks, String city)
+ {
+
+ }
+
+    public void  viewPersonByState(Map<String,AddressBook> addressBooks, String state)
+    {
+
+    }
 
 }
